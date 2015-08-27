@@ -1,6 +1,6 @@
 var env = require('./env.json'),
     Discord = require("discord.js"),
-    Giphy = require('giphy-wrapper')('dc6zaTOxFJmzC');
+    Giphy = require('giphy-wrapper')(env["giphy_key"]);
 
 var mybot = new Discord.Client();
 
