@@ -11,6 +11,7 @@ mybot.on("message", function(msg){
     //keywords
     var hello = "hello";
     var giphy = "gif:";
+    var jaraxxus = "bitch, i aint gat no ";
 
     //Hello
     if(message === hello) {
@@ -23,16 +24,16 @@ mybot.on("message", function(msg){
     if(message.indexOf(giphy) > -1) {
         var term = message.substring(message.indexOf(":")+1).trim().replace(/\s/g, "+");
 
-        Giphy.search(term, 10, 0, function (err, data) {
+        Giphy.random(term, function (err, data) {
             if (err) {
                 return;
             }
 
-            var items = data.data;
-
-            var item = items[Math.floor(Math.random()*items.length)];
-
-            mybot.reply(msg, item.url);
+            if(data.data.length != 0) {
+                mybot.reply(msg, data.data.url);
+            }else{
+                mybot.reply(msg, jaraxxus+" "+message.substring(message.indexOf(":")+1).trim());
+            }
         });
 
         return;
