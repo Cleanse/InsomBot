@@ -22,7 +22,7 @@ mybot.on("message", function(msg)
         if(keyword != 0) {
             var reply = ins.runKeywordFunction(triggers[keyword], keyword, msg);
 
-            console.log(reply);
+            console.log("Fires first?>> "+reply);
 
             mybot.reply(msg, reply);
         }
