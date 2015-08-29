@@ -1,6 +1,8 @@
+var env = require('../../env.json'),
+    Giphy = require('giphy-wrapper')(env["giphy_key"]);
+
 var InsomBot = function() {
     //WTF no classes in JS???!
-    this.events = new Map();
 };
 
 InsomBot.prototype.getKeywords = function(model) {
@@ -26,34 +28,36 @@ InsomBot.prototype.checkMessageForKeywords = function(message, triggers)
     return 0;
 }
 
-InsomBot.prototype.runKeywordFunction = function(keywordFunction, message)
+InsomBot.prototype.runKeywordFunction = function(keywordFunction, keyword, message)
 {
-    return keywordFunction(message);
+    var reply = this[keywordFunction](keyword, message);
+
+    return reply;
 }
 
-InsomBot.prototype.Test = function(message)
+InsomBot.prototype.Test = function(keyword, message)
 {
-    return "Oh yea?" + message.channel.name;
+    return "Oh yea? " + message.channel.name;
 }
 
-InsomBot.prototype.Giphy = function()
+InsomBot.prototype.Giphy = function(keyword, message)
 {
-    var term = message.substring(message.indexOf(":")+1).trim().replace(/\s/g, "+");
+    var giphyIndex = message.content.indexOf(keyword);
 
-    Giphy.random(term, function (err, data) {
-        if (err) {
+    var term = message.content.substring(giphyIndex + keyword.length).trim().replace(/\s/g, "+");
+
+    return Giphy.random(term, function (err, data) {
+        if(err) {
             return;
         }
 
         if(data.data.length != 0) {
-            mybot.reply(msg, data.data.url);
+            console.log("comes second?>> "+data.data.url);
+            return data.data.url;
         }else{
-            mybot.reply(msg, jaraxxus+" "+message.substring(message.indexOf(":")+1).trim());
+            return message.content+" not found";
         }
     });
 }
 
-module.exports = function()
-{
-    return new InsomBot();
-}
+module.exports = InsomBot;

@@ -9,5 +9,8 @@
   "main": "./index.js",
   "keywords": [
     "insombot"
-  ]
+  ],
+  "dependencies": {
+    "giphy-wrapper": "0.0.1"
+  }
 }
