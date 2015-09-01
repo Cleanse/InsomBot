@@ -5,12 +5,7 @@ var env = require('./env.json'),
 var mybot = new Discord.Client();
 var ins = new InsomBot();
 
-var triggers = {
-    "!giphy": "Giphy",
-    "!img": "Imgur",
-    "!define": "Urban",
-    "!test": "Test"
-}
+var triggers = ins.triggers;
 
 var keywords = ins.getKeywords(triggers);
 

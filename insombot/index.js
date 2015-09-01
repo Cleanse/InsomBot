@@ -6,7 +6,12 @@ var env = require('../../env.json'),
 var isearch = new Imgur(env["imgur_key"]);
 
 var InsomBot = function() {
-    //WTF no classes in JS???!
+    this.triggers = {
+        "!giphy": "Giphy",
+        "!img": "Imgur",
+        "!define": "Urban",
+        "!commands": "Commands"
+    }
 };
 
 InsomBot.prototype.getKeywords = function(model) {
@@ -24,7 +29,7 @@ InsomBot.prototype.checkMessageForKeywords = function(message, triggers, callbac
 {
     for(var i = 0; i != triggers.length; i++) {
         var substring = triggers[i];
-        if (message.indexOf(substring) != - 1) {
+        if (message.indexOf(substring) == 0) {
             return callback(substring);
         }
     }
@@ -36,9 +41,11 @@ InsomBot.prototype.runKeywordFunction = function(keywordFunction, keyword, messa
     this[keywordFunction](keyword, message, callback);
 }
 
-InsomBot.prototype.Test = function(keyword, message, callback)
+InsomBot.prototype.Commands = function(keyword, message, callback)
 {
-    return callback("Oh yea? " + message.channel.name);
+    var commandsAvailable = this.getKeywords(this.triggers);
+
+    return callback("Commands available: " + commandsAvailable);
 };
 
 InsomBot.prototype.Giphy = function(keyword, message, callback)
