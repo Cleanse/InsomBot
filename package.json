@@ -1,0 +1,20 @@
+{
+  "name": "discordapp-insombot",
+  "description": "A chat bot for your DiscordApp server",
+  "version": "0.0.1",
+  "author": {
+    "name": "Insomnia Guild",
+    "url": "http://insomniaguild.org/"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^3.0.3",
+    "insombot": "file:./insombot"
+  },
+  "keywords": [
+    "insombot"
+  ]
+}

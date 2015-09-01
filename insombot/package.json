@@ -1,0 +1,18 @@
+{
+  "name": "insombot",
+  "description": "Basic functions to accompany the InsomBot for Discord.",
+  "version": "0.0.1",
+  "author": {
+    "name": "Insomnia Guild",
+    "url": "http://insomniaguild.org/"
+  },
+  "main": "./index.js",
+  "keywords": [
+    "insombot"
+  ],
+  "dependencies": {
+    "giphy-wrapper": "ptte/node-giphy",
+    "imgur-search": "^1.0.1",
+    "urban": "^0.2.4"
+  }
+}
