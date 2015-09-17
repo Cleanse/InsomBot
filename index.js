@@ -22,4 +22,8 @@ mybot.on("message", function(msg)
     }
 });
 
+mybot.on("disconnected", function() {
+    mybot.login(env["discord_email"], env["discord_pass"]);
+});
+
 mybot.login(env["discord_email"], env["discord_pass"]);
