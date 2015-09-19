@@ -22,8 +22,16 @@ mybot.on("message", function(msg)
     }
 });
 
-mybot.on("disconnected", function() {
-    mybot.login(env["discord_email"], env["discord_pass"]);
+mybot.on("disconnect", function () {
+    console.log("Disconnected, reconnecting in 1 minute");
+    setTimeout(function () {
+        mybot.login(env["discord_email"], env["discord_pass"])
+            .then(function (token) {
+                loggedIn();
+            }).catch(function (err) {
+                console.log("Login failed");
+            });
+    }, 60000);
 });
 
 mybot.login(env["discord_email"], env["discord_pass"]);
