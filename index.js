@@ -22,7 +22,7 @@ mybot.on("message", function(msg)
     }
 });
 
-mybot.on("disconnect", function () {
+mybot.on("disconnected", function () {
     console.log("Disconnected, reconnecting in 1 minute");
     setTimeout(function () {
         mybot.login(env["discord_email"], env["discord_pass"])
