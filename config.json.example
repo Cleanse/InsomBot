@@ -1,0 +1,10 @@
+{
+  "discord_email": "email@email.ext",
+  "discord_pass": "password123",
+  "giphy_key": "dc6zaTOxFJmzC",
+  "imgur_key": "your-key-here",
+  "Commands": "!commands",
+  "Giphy": "!giphy",
+  "Imgur": "!img",
+  "Urban": "!define"
+}

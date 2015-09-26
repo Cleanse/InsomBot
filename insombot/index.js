@@ -1,25 +1,18 @@
-var env = require('../../env.json'),
+var env = require('../../config.json'),
     Giphy = require('giphy-wrapper')(env["giphy_key"]),
     Imgur = require("imgur-search"),
     Urban = require('urban');
 
-var isearch = new Imgur(env["imgur_key"]);
+var imgSearch = new Imgur(env["imgur_key"]);
 
-var InsomBot = function() {
-    this.triggers = {
-        "!giphy": "Giphy",
-        "!img": "Imgur",
-        "!define": "Urban",
-        "!commands": "Commands"
-    }
-};
+var InsomBot = function() {};
 
 InsomBot.prototype.getKeywords = function(model) {
     var result = [];
 
     for (var i in model) {
         if (model.hasOwnProperty(i)) {
-            result.push(i);
+            result.push(model[i]);
         }
     }
     return result;
@@ -36,17 +29,20 @@ InsomBot.prototype.checkMessageForKeywords = function(message, triggers, callbac
     return callback(0);
 }
 
+InsomBot.prototype.getKeyByValue = function(object, value)
+{
+    for(var prop in object) {
+        if(object.hasOwnProperty(prop)) {
+            if(object[prop] == value)
+                return prop;
+        }
+    }
+}
+
 InsomBot.prototype.runKeywordFunction = function(keywordFunction, keyword, message, callback)
 {
     this[keywordFunction](keyword, message, callback);
 }
-
-InsomBot.prototype.Commands = function(keyword, message, callback)
-{
-    var commandsAvailable = this.getKeywords(this.triggers);
-
-    return callback("Commands available: " + commandsAvailable);
-};
 
 InsomBot.prototype.Giphy = function(keyword, message, callback)
 {
@@ -71,7 +67,7 @@ InsomBot.prototype.Imgur = function(keyword, message, callback)
     var term = message.content.substring(imgurIndex + keyword.length).trim().replace(/\s/g, "+");
 
     if (imgurIndex > -1) {
-        isearch.search(term).then(function(results) {
+        imgSearch.search(term).then(function(results) {
             if (results === undefined || results.length === 0) {
                 return callback("Sorry, I couldn't find any imgurs for the term: " + message.content.substring(imgurIndex + keyword.length).trim());
             }
