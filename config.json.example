@@ -1,10 +1,26 @@
 {
-  "discord_email": "email@email.ext",
-  "discord_pass": "password123",
+  "discord": {
+    "email": "",
+    "password": ""
+    },
+  "keywords": {
+    "Help": "!commands",
+    "Giphy": "!giphy",
+    "Imgur": "!img",
+    "Urban": "!define"
+  },
   "giphy_key": "dc6zaTOxFJmzC",
-  "imgur_key": "your-key-here",
-  "Commands": "!commands",
-  "giphy": "!giphy",
-  "imgur": "!img",
-  "urban": "!define"
+  "imgur_key": "",
+  "twitch": {
+    "client_id": "",
+    "username": "",
+    "password": "",
+    "scope": "user_read"
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "database": "",
+    "user": "",
+    "password": ""
+  }
 }

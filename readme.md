@@ -1,17 +1,8 @@
 ## Insomnia DiscordApp Bot
 
 ### Installation
-`npm install`
-Rename `env.json.example` to `env.json` and fill in your credentials.
+1. `npm install`
+2. Rename `config.json.example` to `config.json` and fill in your credentials.
+3. Use `node index.js` to run, or set up something like https://github.com/foreverjs/forever (`forever start -a index.js`)
 
-Use `node index.js` to run, or set up something like https://github.com/foreverjs/forever
-
-Default commands: `!img`, `!giphy`, `!define`, `!commands`. These can be edited in Insombot/index.js (https://github.com/Cleanse/InsomBot/wiki/Adding-Commands):
-```javascript
-this.triggers = {
-        "!giphy": "Giphy",
-        "!img": "Imgur",
-        "!define": "Urban",
-        "!commands": "Commands"
-    }
-```
+Default commands: `!img`, `!giphy`, `!define`, `!commands`. These can be edited in config.json
