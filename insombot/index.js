@@ -1,25 +1,23 @@
-var env = require('../../env.json'),
-    Giphy = require('giphy-wrapper')(env["giphy_key"]),
-    Imgur = require("imgur-search"),
-    Urban = require('urban');
+var env = require('../../config.json'),
+    Help = require('./Help.js'),
+    Imgur = require('./Imgur.js'),
+    Giphy = require('./Giphy.js'),
+    Urban = require('./Urban.js');
 
-var isearch = new Imgur(env["imgur_key"]);
-
-var InsomBot = function() {
-    this.triggers = {
-        "!giphy": "Giphy",
-        "!img": "Imgur",
-        "!define": "Urban",
-        "!commands": "Commands"
-    }
+var InsomBot = function () {
+    this.keywords = env.keywords;
+    this.Help = new Help;
+    this.Imgur = new Imgur;
+    this.Giphy = new Giphy;
+    this.Urban = new Urban;
 };
 
-InsomBot.prototype.getKeywords = function(model) {
+InsomBot.prototype.loadKeywords = function ()
+{
     var result = [];
-
-    for (var i in model) {
-        if (model.hasOwnProperty(i)) {
-            result.push(i);
+    for (var i in this.keywords) {
+        if (this.keywords.hasOwnProperty(i)) {
+            result.push(this.keywords[i]);
         }
     }
     return result;
@@ -36,65 +34,19 @@ InsomBot.prototype.checkMessageForKeywords = function(message, triggers, callbac
     return callback(0);
 }
 
+InsomBot.prototype.getKeyByValue = function(object, value)
+{
+    for(var prop in object) {
+        if(object.hasOwnProperty(prop)) {
+            if(object[prop] == value)
+                return prop;
+        }
+    }
+}
+
 InsomBot.prototype.runKeywordFunction = function(keywordFunction, keyword, message, callback)
 {
-    this[keywordFunction](keyword, message, callback);
-}
-
-InsomBot.prototype.Commands = function(keyword, message, callback)
-{
-    var commandsAvailable = this.getKeywords(this.triggers);
-
-    return callback("Commands available: " + commandsAvailable);
-};
-
-InsomBot.prototype.Giphy = function(keyword, message, callback)
-{
-    var giphyIndex = message.content.indexOf(keyword);
-    var term = message.content.substring(giphyIndex + keyword.length).trim().replace(/\s/g, "+");
-
-    Giphy.random(term, function (err, data) {
-        if(err) {
-            return;
-        }
-
-        if(data.data.length != 0) {
-            return callback(data.data.url);
-        }
-        return callback(message.content.substring(giphyIndex + keyword.length).trim()+" not found");
-    });
-}
-
-InsomBot.prototype.Imgur = function(keyword, message, callback)
-{
-    var imgurIndex = message.content.indexOf(keyword);
-    var term = message.content.substring(imgurIndex + keyword.length).trim().replace(/\s/g, "+");
-
-    if (imgurIndex > -1) {
-        isearch.search(term).then(function(results) {
-            if (results === undefined || results.length === 0) {
-                return callback("Sorry, I couldn't find any imgurs for the term: " + message.content.substring(imgurIndex + keyword.length).trim());
-            }
-            var image = results[Math.floor(Math.random() * results.length)];
-            return callback(image.link);
-        });
-    }
-}
-
-InsomBot.prototype.Urban = function(keyword, message, callback)
-{
-    var urbanIndex = message.content.indexOf(keyword);
-    var term = message.content.substring(urbanIndex + keyword.length).trim().replace(/\s/g, "+");
-
-    if (urbanIndex > -1) {
-        Urban(term).first(function(json) {
-            if (json !== undefined) {
-                var definition = "" + json.word + ": " + json.definition + "\nupvotes: " + json.thumbs_up + "   downvotes: " + json.thumbs_down + "\n\nExample: " + json.example;
-                return callback(definition);
-            }
-            return callback("Sorry, I couldn't find a definition for: " + term);
-        });
-    }
+    this[keywordFunction].Message(keyword, message, callback);
 }
 
 module.exports = InsomBot;
