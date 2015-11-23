@@ -1,4 +1,4 @@
-var env = require('../../config.json'),
+var env = require('../config.json'),
     Help = require('./Help.js'),
     Imgur = require('./Imgur.js'),
     Giphy = require('./Giphy.js'),

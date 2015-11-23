@@ -1,4 +1,4 @@
-var env = require('../../config.json'),
+var env = require('../config.json'),
     Urban = require('urban');
 
 var UrbanModule = function () {};
@@ -11,7 +11,9 @@ UrbanModule.prototype.Message = function(keyword, message, callback)
     if (urbanIndex > -1) {
         Urban(term).first(function(json) {
             if (json !== undefined) {
-                var definition = "" + json.word + ": " + json.definition + "\nupvotes: " + json.thumbs_up + "   downvotes: " + json.thumbs_down + "\n\nExample: " + json.example;
+                var definition = "\n**" + json.word + "**\n" +
+                    json.definition + "\n\n" +
+                    "Example: " + json.example;
                 return callback(definition);
             }
             return callback("Sorry, I couldn't find a definition for: " + term);

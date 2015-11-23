@@ -1,4 +1,4 @@
-var env = require('../../config.json');
+var env = require('../config.json');
 
 var HelpModule = function () {
     this.keywords = env.keywords;
@@ -17,7 +17,8 @@ HelpModule.prototype.getKeywords = function()
 
 HelpModule.prototype.Message = function(keywords, message, callback)
 {
-    return callback("InsomBot Commands: " + this.getKeywords());
+    var words = this.getKeywords() + '';
+    return callback("InsomBot Commands: " + words.split(',').join(', '));
 }
 
 module.exports = HelpModule;

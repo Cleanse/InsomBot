@@ -1,7 +1,7 @@
 {
   "name": "discordapp-insombot",
   "description": "A chat bot for your DiscordApp server",
-  "version": "0.2.2",
+  "version": "0.9.0",
   "author": {
     "name": "Insomnia Guild",
     "url": "http://insomniaguild.org/"
@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "discord.js": "^3.6.2",
-    "insombot": "file:./insombot"
+    "imgur-search": "^1.0.1",
+    "giphy-wrapper": "ptte/node-giphy",
+    "urban": "^0.2.4"
   },
   "keywords": [
     "insombot"

@@ -1,4 +1,4 @@
-var env = require('../../config.json'),
+var env = require('../config.json'),
     Imgur = require("imgur-search");
 
 var ImgurModule = function () {

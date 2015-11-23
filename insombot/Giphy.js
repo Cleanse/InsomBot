@@ -1,4 +1,4 @@
-var env = require('../../config.json'),
+var env = require('../config.json'),
     Giphy = require('giphy-wrapper')(env.giphy_key);
 
 var GiphyModule = function () {};
