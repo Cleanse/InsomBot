@@ -5,6 +5,10 @@ var env = require('./config.json'),
 var ins = new InsomBot;
 var discordjs = new Discord.Client();
 
+discordjs.on("ready", function () {
+    console.log("Ready to begin! Serving in " + discordjs.channels.length + " channels");
+});
+
 discordjs.on('message', function(msg)
 {
     if (typeof ins.loadKeywords() !== 'undefined' && ins.loadKeywords().length > 0) {
@@ -21,15 +25,8 @@ discordjs.on('message', function(msg)
 });
 
 discordjs.on('disconnected', function () {
-    console.log('Disconnected, reconnecting in 1 minute');
-    setTimeout(function () {
-        discordjs.login(env.discord.email, env.discord.password)
-            .then(function (token) {
-                console.log('Login successful.', token);
-            }).catch(function (err) {
-                console.log('Login failed.', err);
-            });
-    }, 60000);
+    console.log('Disconnected.');
+    process.exit(1);
 });
 
 discordjs.login(env.discord.email, env.discord.password);
