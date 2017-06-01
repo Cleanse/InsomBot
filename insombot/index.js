@@ -1,52 +1,29 @@
-var env = require('../config.json'),
-    Help = require('./Help.js'),
-    Imgur = require('./Imgur.js'),
-    Giphy = require('./Giphy.js'),
-    Urban = require('./Urban.js');
+/*
+  A ping pong bot, whenever you send "ping", it replies "pong".
+*/
 
-var InsomBot = function () {
-    this.keywords = env.keywords;
-    this.Help = new Help;
-    this.Imgur = new Imgur;
-    this.Giphy = new Giphy;
-    this.Urban = new Urban;
-};
+// Import the discord.js module
+const Discord = require('discord.js');
 
-InsomBot.prototype.loadKeywords = function ()
-{
-    var result = [];
-    for (var i in this.keywords) {
-        if (this.keywords.hasOwnProperty(i)) {
-            result.push(this.keywords[i]);
-        }
-    }
-    return result;
-}
+// Create an instance of a Discord client
+const client = new Discord.Client();
 
-InsomBot.prototype.checkMessageForKeywords = function(message, triggers, callback)
-{
-    for(var i = 0; i != triggers.length; i++) {
-        var substring = triggers[i];
-        if (message.indexOf(substring) == 0) {
-            return callback(substring);
-        }
-    }
-    return callback(0);
-}
+// The token of your bot - https://discordapp.com/developers/applications/me
+const token = 'your bot token here';
 
-InsomBot.prototype.getKeyByValue = function(object, value)
-{
-    for(var prop in object) {
-        if(object.hasOwnProperty(prop)) {
-            if(object[prop] == value)
-                return prop;
-        }
-    }
-}
+// The ready event is vital, it means that your bot will only start reacting to information
+// from Discord _after_ ready is emitted
+client.on('ready', () => {
+  console.log('I am ready!');
+});
 
-InsomBot.prototype.runKeywordFunction = function(keywordFunction, keyword, message, callback)
-{
-    this[keywordFunction].Message(keyword, message, callback);
-}
+// Create an event listener for messages
+client.on('message', message => {
+  // If the message is "ping"
+  if (message.content === 'ping') {
+    // Send "pong" to the same channel
+    message.channel.send('pong');
+  }
+});
 
-module.exports = InsomBot;
+// Log our bot in
